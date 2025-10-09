@@ -6,6 +6,11 @@
 #include "GameFramework/Pawn.h"
 #include "MyTwinStickPawn.generated.h"
 
+class UFloatingPawnMovement;
+class USphereComponent;
+class UCameraComponent;
+class USpringArmComponent;
+
 UCLASS()
 class FIRST_FOR_ENG_PROJ_API AMyTwinStickPawn : public APawn
 {
@@ -14,6 +19,21 @@ class FIRST_FOR_ENG_PROJ_API AMyTwinStickPawn : public APawn
 public:
 	// Sets default values for this pawn's properties
 	AMyTwinStickPawn();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<USpringArmComponent> SpringArm;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UCameraComponent> Camera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<USphereComponent> SphereCollision;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UStaticMeshComponent> StaticMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UFloatingPawnMovement> MovementComp;
 
 protected:
 	// Called when the game starts or when spawned
