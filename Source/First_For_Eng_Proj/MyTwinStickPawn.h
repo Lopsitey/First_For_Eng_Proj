@@ -39,13 +39,16 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	UFUNCTION(BlueprintCallable)
 	void DoMove(FVector2D Input);
 	
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	UFUNCTION(BlueprintCallable)
 	void DoDash(bool Input);
 
-	FVector LastMoveInput;
+	FVector2D LastMoveInput;
+	FVector2D DashDirection;
+	
+	float DashImpulse = 2500.0f;
 
 public:
 	// Called every frame

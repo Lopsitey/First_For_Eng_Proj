@@ -60,22 +60,22 @@ void AMyTwinStickPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
-void AMyTwinStickPawn::DoMove_Implementation(FVector2D Input)
+void AMyTwinStickPawn::DoMove(FVector2D Input)
 {
 	// Store the last move input as a direction vector for dashing
-	LastMoveInput = FVector(Input.X, Input.Y, 0.0f);
+	LastMoveInput.X = Input.X;
+	LastMoveInput.Y = Input.Y;
 
 	FRotator MoveDirection = FRotator(0.0f, GetControlRotation().Yaw, GetControlRotation().Roll);
-	GetMovementComponent()->AddInputVector(MoveDirection.RotateVector(FVector::ForwardVector) * Input.Y);
-	GetMovementComponent()->AddInputVector(MoveDirection.RotateVector(FVector::RightVector) * Input.X);
+	GetMovementComponent()->AddInputVector(MoveDirection.RotateVector(FVector::ForwardVector) * Input.X);
+	GetMovementComponent()->AddInputVector(MoveDirection.RotateVector(FVector::RightVector) * Input.Y);
 }
 
-void AMyTwinStickPawn::DoDash_Implementation(bool Input)
+void AMyTwinStickPawn::DoDash(bool Input)//if this was a UFUNCTION(BlueprintNativeevent) it would need to be called DoDash_Implementation
 {
 	if (Input)
 	{
-		float DashImpulse = 2500.0f;
-		FVector DashDirection = LastMoveInput;
-		GetMovementComponent()->Velocity = DashDirection * DashImpulse;
+		DashDirection = LastMoveInput;
+		GetMovementComponent()->Velocity = FVector(DashDirection * DashImpulse,0.0f);
 	}
 }
